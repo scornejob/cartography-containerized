@@ -45,6 +45,6 @@ services:
       neo4j:
         condition: service_healthy
     volumes:
-      - ./aws_config:/var/cartography/.aws/credentials
+      - ./aws_config:/home/cartography/.aws/credentials
     links:
       - neo4j
