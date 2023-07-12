@@ -11,3 +11,5 @@
 
  username: `admin`
  password: `password`
+
+ Persistent storage for neo4j is on `.compose` folder.
