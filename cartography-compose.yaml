@@ -29,18 +29,22 @@ services:
       # Networking:
       - dbms.connector.bolt.listen_address=0.0.0.0:7687
     healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:7474"]
-        interval: 10s
+        test: ["CMD", "neo4j", "status"]
+        interval: 30s
         timeout: 10s
-        retries: 10
+        retries: 3
   cartography:
     image: cartography:seba
     platform: linux/arm64/v8
     # EXAMPLE: Our ENTRYPOINT is cartography, running specific command to sync AWS
     # command: ["-v", "--neo4j-uri=bolt://neo4j:7687", "--aws-sync-all-profiles"]
+    command: ["-v", "--neo4j-uri=neo4j://neo4j:7687"]
     init: true
     restart: on-failure
     depends_on:
-      - neo4j
+      neo4j:
+        condition: service_healthy
     volumes:
-      - ./aws_config:/var/cartography/.aws/config
+      - ./aws_config:/home/cartography/.aws/credentials
+    links:
+      - neo4j
