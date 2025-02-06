@@ -1,7 +1,7 @@
-version: "3.7"
+
 services:
   neo4j:
-    image: neo4j:4.4.5-community
+    image: neo4j:4.4.41-community
     restart: unless-stopped
     ports:
       - 7474:7474
@@ -35,6 +35,7 @@ services:
         retries: 3
   cartography:
     image: cartography:seba
+    #image: ghcr.io/cartography-cncf/cartography:latest
     platform: linux/arm64/v8
     # EXAMPLE: Our ENTRYPOINT is cartography, running specific command to sync AWS
     # command: ["-v", "--neo4j-uri=bolt://neo4j:7687", "--aws-sync-all-profiles"]
